@@ -23,7 +23,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,6 +46,7 @@
             -webkit-text-fill-color: transparent;
             cursor: pointer;
             transition: transform 0.3s ease;
+            white-space: nowrap;
         }
 
         .logo:hover {
@@ -54,7 +55,7 @@
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
             list-style: none;
         }
 
@@ -64,6 +65,7 @@
             font-size: 1rem;
             position: relative;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-links a::after {
@@ -79,6 +81,34 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* Pages */
@@ -131,7 +161,7 @@
         }
 
         .hero h1 {
-            font-size: 5rem;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             -webkit-background-clip: text;
@@ -145,7 +175,7 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
             color: #aaa;
             margin-bottom: 2rem;
             animation: slideUp 1s ease 0.2s backwards;
@@ -153,7 +183,7 @@
 
         .cta-button {
             padding: 1rem 2.5rem;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             border-radius: 50px;
@@ -235,7 +265,7 @@
         }
 
         .about-text h2 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -243,7 +273,7 @@
         }
 
         .about-text p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
             line-height: 1.8;
             color: #aaa;
             margin-bottom: 1.5rem;
@@ -285,7 +315,7 @@
         }
 
         .work-header h2 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -294,7 +324,7 @@
 
         .work-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -315,7 +345,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
+            position: relative;
         }
 
         .work-item:nth-child(2) .work-item-bg {
@@ -330,8 +361,34 @@
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
         }
 
-        .work-item:hover .work-item-bg {
-            transform: scale(1.1);
+        /* Carousel styles */
+        .carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .work-item:hover .carousel {
+            opacity: 1;
+        }
+
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
         }
 
         .work-overlay {
@@ -341,21 +398,25 @@
             right: 0;
             padding: 2rem;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(100%);
-            transition: transform 0.5s ease;
-        }
-
-        .work-item:hover .work-overlay {
-            transform: translateY(0);
         }
 
         .work-overlay h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
             margin-bottom: 0.5rem;
         }
 
         .work-overlay p {
             color: #aaa;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .work-item:hover .work-overlay p {
+            opacity: 1;
+            max-height: 100px;
         }
 
         /* Contact Page */
@@ -371,7 +432,7 @@
         }
 
         .contact-header h2 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -380,7 +441,7 @@
 
         .contact-form {
             background: rgba(255, 255, 255, 0.05);
-            padding: 3rem;
+            padding: clamp(1.5rem, 4vw, 3rem);
             border-radius: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -393,7 +454,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             color: #aaa;
         }
 
@@ -465,11 +526,79 @@
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .work-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 1.5rem; }
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .work-item {
+                height: 300px;
+            }
+
+            .work-overlay {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -478,7 +607,12 @@
 
     <nav id="navbar">
         <div class="logo" onclick="showPage('home')">PORTFOLIO</div>
-        <ul class="nav-links">
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#" onclick="showPage('home')">Home</a></li>
             <li><a href="#" onclick="showPage('about')">About</a></li>
             <li><a href="#" onclick="showPage('work')">Work</a></li>
@@ -525,32 +659,36 @@
                 <p style="color: #aaa; font-size: 1.2rem;">A selection of my recent work</p>
             </div>
             <div class="work-grid">
-                <div class="work-item">
+                <div class="work-item" data-images="image1.jpg,image2.jpg,image3.jpg">
                     <div class="work-item-bg"></div>
+                    <div class="carousel"></div>
                     <div class="work-overlay">
                         <h3>Posts</h3>
                         <p>Engaging with my viewers</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item" data-images="image4.jpg,image5.jpg,image6.jpg">
                     <div class="work-item-bg"></div>
+                    <div class="carousel"></div>
                     <div class="work-overlay">
-                        <h3>Mobile App Design</h3>
-                        <p>iOS & Android fitness tracking app</p>
+                        <h3>Video Content</h3>
+                        <p>Educational shorts and videos</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item" data-images="image7.jpg,image8.jpg,image9.jpg">
                     <div class="work-item-bg"></div>
+                    <div class="carousel"></div>
                     <div class="work-overlay">
-                        <h3>E-commerce Platform</h3>
-                        <p>Full-stack web development project</p>
+                        <h3>Community</h3>
+                        <p>Building a learning community</p>
                     </div>
                 </div>
-                <div class="work-item">
+                <div class="work-item" data-images="image10.jpg,image11.jpg,image12.jpg">
                     <div class="work-item-bg"></div>
+                    <div class="carousel"></div>
                     <div class="work-overlay">
-                        <h3>Motion Graphics</h3>
-                        <p>Animated explainer video series</p>
+                        <h3>Collaborations</h3>
+                        <p>Working with other creators</p>
                     </div>
                 </div>
             </div>
@@ -583,6 +721,23 @@
     </div>
 
     <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
         // Page navigation
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
@@ -615,6 +770,49 @@
         }
 
         createParticles();
+
+        // Image carousel for work items
+        const workItems = document.querySelectorAll('.work-item');
+        
+        workItems.forEach(item => {
+            const carousel = item.querySelector('.carousel');
+            const imagesAttr = item.getAttribute('data-images');
+            const images = imagesAttr ? imagesAttr.split(',') : [];
+            
+            // Create image elements
+            images.forEach((imgSrc, index) => {
+                const img = document.createElement('img');
+                img.src = imgSrc.trim();
+                img.className = 'carousel-image';
+                if (index === 0) img.classList.add('active');
+                carousel.appendChild(img);
+            });
+            
+            let currentIndex = 0;
+            let carouselInterval;
+            
+            // Start carousel on hover
+            item.addEventListener('mouseenter', () => {
+                if (images.length > 1) {
+                    carouselInterval = setInterval(() => {
+                        const carouselImages = carousel.querySelectorAll('.carousel-image');
+                        carouselImages[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        carouselImages[currentIndex].classList.add('active');
+                    }, 2000);
+                }
+            });
+            
+            // Stop carousel on mouse leave
+            item.addEventListener('mouseleave', () => {
+                clearInterval(carouselInterval);
+                const carouselImages = carousel.querySelectorAll('.carousel-image');
+                carouselImages.forEach((img, index) => {
+                    img.classList.toggle('active', index === 0);
+                });
+                currentIndex = 0;
+            });
+        });
 
         // Form submission
         function handleSubmit(event) {
